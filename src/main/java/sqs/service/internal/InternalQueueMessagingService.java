@@ -1,15 +1,17 @@
 package sqs.service.internal;
 
+import org.springframework.messaging.Message;
 import sns.message.InternalMessage;
 import sqs.service.QueueMessagingService;
 
-public abstract class InternalQueueMessagingService<T extends InternalMessage> extends QueueMessagingService<T> {
+public abstract class InternalQueueMessagingService extends QueueMessagingService<InternalMessage> {
 
-    public void publish(String destinationName, T message) {
+    protected void publish(String destinationName, InternalMessage message) {
         super.publish(destinationName, message);
     }
 
-    public T receive(String destinationName) {
-        return super.receive(destinationName);
+    protected InternalMessage receive(String destinationName) {
+        Message<?> message = super.receive(destinationName);
+        return new InternalMessage(message.getPayload(), message.getHeaders());
     }
 }
