@@ -1,0 +1,18 @@
+package config;
+
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import javax.validation.constraints.NotBlank;
+
+@ConfigurationProperties("amazon")
+@Data
+public class AmazonBasicProperties {
+    @NotBlank
+    private String region;
+    @NotBlank
+    private String accessKey;
+    @NotBlank
+    private String secretKey;
+    private String dynamoUrl;
+}
