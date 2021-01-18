@@ -9,10 +9,12 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class AmazonBasicProperties {
     @NotBlank
-    private String region;
+    private String region = "us-east-1";
     @NotBlank
     private String accessKey;
     @NotBlank
     private String secretKey;
-    private String dynamoUrl;
+    private String dynamoEndpoint;
+    private String snsEndpoint;
+    private String sqsEndpoint;
 }

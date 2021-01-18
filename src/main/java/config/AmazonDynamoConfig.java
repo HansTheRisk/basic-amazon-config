@@ -15,8 +15,10 @@ public class AmazonDynamoConfig extends AmazonBasicConfig {
         AmazonDynamoDBClientBuilder builder = AmazonDynamoDBClientBuilder.standard();
         AWSStaticCredentialsProvider provider = new AWSStaticCredentialsProvider(amazonAWSCredentials());
         builder.setCredentials(provider);
-        builder.setEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(amazonBasicProperties.getDynamoUrl(),
-                                                                                    amazonBasicProperties.getRegion()));
+
+        if (amazonBasicProperties.getDynamoEndpoint() != null)
+            builder.setEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(amazonBasicProperties.getDynamoEndpoint(),
+                                                                                        amazonBasicProperties.getRegion()));
         return builder.build();
     }
 
