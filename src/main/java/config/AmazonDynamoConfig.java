@@ -7,6 +7,8 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Objects;
+
 @Configuration
 public class AmazonDynamoConfig extends AmazonBasicConfig {
 
@@ -16,7 +18,7 @@ public class AmazonDynamoConfig extends AmazonBasicConfig {
         AWSStaticCredentialsProvider provider = new AWSStaticCredentialsProvider(amazonAWSCredentials());
         builder.setCredentials(provider);
 
-        if (amazonBasicProperties.getDynamoEndpoint() != null)
+        if (Objects.nonNull(amazonBasicProperties.getDynamoEndpoint()))
             builder.setEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(amazonBasicProperties.getDynamoEndpoint(),
                                                                                         amazonBasicProperties.getRegion()));
         return builder.build();

@@ -13,6 +13,8 @@ import org.springframework.cloud.aws.messaging.core.QueueMessagingTemplate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Objects;
+
 @Configuration
 public class AmazonMessagingConfig extends AmazonBasicConfig{
 
@@ -21,7 +23,7 @@ public class AmazonMessagingConfig extends AmazonBasicConfig{
         AmazonSNSClientBuilder amazonSNS = AmazonSNSClient.builder()
                                                           .withCredentials(new AWSStaticCredentialsProvider(amazonAWSCredentials()));
 
-        if(amazonBasicProperties.getSnsEndpoint() != null) {
+        if(Objects.nonNull(amazonBasicProperties.getSnsEndpoint())) {
             amazonSNS.setEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(amazonBasicProperties.getSnsEndpoint(),
                                                                                           amazonBasicProperties.getRegion()));
         } else {
@@ -41,7 +43,7 @@ public class AmazonMessagingConfig extends AmazonBasicConfig{
         AmazonSQSAsyncClientBuilder sqsAsync = AmazonSQSAsyncClient.asyncBuilder()
                                                                    .withCredentials(new AWSStaticCredentialsProvider(amazonAWSCredentials()));
 
-        if(amazonBasicProperties.getSqsEndpoint() != null) {
+        if(Objects.nonNull(amazonBasicProperties.getSqsEndpoint())) {
             sqsAsync.setEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(amazonBasicProperties.getSqsEndpoint(),
                                                                                          amazonBasicProperties.getRegion()));
         } else {
